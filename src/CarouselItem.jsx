@@ -1,4 +1,5 @@
-import React from 'react';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Container,
   ThumbnailSection,
@@ -14,7 +15,10 @@ import {
   MonthText,
   DateText,
   FooterSection,
-} from './CarouselItem.styled.js';
+  FooterInfo,
+  PageIndicator,
+  Circle
+} from "./CarouselItem.styled.js";
 
 export default function CarouselItem({
   date,
@@ -25,7 +29,10 @@ export default function CarouselItem({
   windSpeed,
   humidity,
   intensity,
+  currentPage,
+  totalPage
 }) {
+  const circles = new Array(totalPage).fill(null);
   return (
     <Container>
       <ThumbnailSection>
@@ -45,9 +52,25 @@ export default function CarouselItem({
         </DateInfo>
       </InfoSection>
       <FooterSection>
-        <div>{windSpeed} MPH</div>
-        <div>{humidity} %</div>
-        <div>{intensity} %</div>
+        <FooterInfo>
+          <div>
+            <FontAwesomeIcon icon="wind" />
+            {windSpeed} MPH
+          </div>
+          <div>
+            <FontAwesomeIcon icon="humidity" />
+            {humidity} %
+          </div>
+          <div>
+            <FontAwesomeIcon icon="sun" />
+            {intensity} %
+          </div>
+        </FooterInfo>
+        <PageIndicator>
+          {circles.map((item, index) => (
+            <Circle key={index} active={index === currentPage} />
+          ))}
+        </PageIndicator>
       </FooterSection>
     </Container>
   );

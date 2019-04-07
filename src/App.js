@@ -6,7 +6,7 @@ import CarouselItem from './CarouselItem';
 
 export default function App() {
   const settings = {
-    dots: true,
+    // dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -26,7 +26,7 @@ export default function App() {
     {
       date: 8,
       MMM: 'APR',
-      weather: 'Cloudy Skies',
+      weather: 'Heavy Rain',
       temprature: 26,
       location: 'Singapore',
       windSpeed: '22',
@@ -37,7 +37,12 @@ export default function App() {
   return (
     <Slider {...settings}>
       {data.map((item, index) => (
-        <CarouselItem {...item} key={index} />
+        <CarouselItem
+          {...item}
+          key={index}
+          currentPage={index}
+          totalPage={data.length}
+        />
       ))}
     </Slider>
   );
