@@ -60,33 +60,36 @@ export default class App extends React.Component {
       fetchWeatherApi(Q_PARAM_3)
     ]).catch(e => console.error(e));
     return fetchedData.map(r => ({
-      date: r.current.last_updated.slice(8, 2),
-      MMM: getMMM(r.current.last_updated.slice(6, 2)),
+      date: parseInt(r.current.last_updated.substr(8, 2)),
+      MMM: getMMM(r.current.last_updated.substr(5, 2)),
       weather: r.current.condition.text,
       weatherIcon: r.current.condition.icon,
+      weatherCode: r.current.condition.code,
       temprature: r.current.temp_c,
       location: r.location.name,
       windSpeed: r.current.wind_mph,
       humidity: r.current.humidity,
-      intensity: r.current.cloud
+      intensity: r.current.uv
     }));
   }
 
   componentDidMount() {
-    this.fetchData().then(data => this.setState({ data }));
+    this.fetchData().then(data => this.setState({ data: data }));
   }
 
   render() {
+    const { data } = this.state;
     return (
       <Slider {...this.settings}>
-        {this.state.data.map((item, index) => (
-          <CarouselItem
-            {...item}
-            key={index}
-            currentPage={index}
-            totalPage={data.length}
-          />
-        ))}
+        {data &&
+          data.map((item, index) => (
+            <CarouselItem
+              {...item}
+              key={index}
+              currentPage={index}
+              totalPage={data.length}
+            />
+          ))}
       </Slider>
     );
   }
