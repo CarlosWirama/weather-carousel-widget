@@ -5,7 +5,6 @@ import ToysIcon from "@material-ui/icons/Toys";
 import WavesIcon from "@material-ui/icons/Waves";
 import WbSunny from "@material-ui/icons/WbSunny";
 import {
-  Container,
   ThumbnailSection,
   ButtonContainer,
   WeatherIcon,
@@ -19,8 +18,6 @@ import {
   DateText,
   FooterSection,
   FooterInfo,
-  PageIndicator,
-  Circle,
   FooterInfoItem
 } from "./CarouselItem.styled.js";
 
@@ -35,20 +32,19 @@ export default function CarouselItem({
   windSpeed,
   humidity,
   intensity,
-  currentPage,
-  totalPage
+  onClickProfile,
+  onClickRefresh
 }) {
-  const circles = new Array(totalPage).fill(null);
   return (
-    <Container>
+    <React.Fragment>
       <ThumbnailSection>
-        <ButtonContainer>
+        <ButtonContainer onClick={onClickProfile}>
           <PersonIcon />
         </ButtonContainer>
         <WeatherIcon>
           <img src={weatherIcon} width="150px" height="150px" alt="" />
         </WeatherIcon>
-        <ButtonContainer>
+        <ButtonContainer onClick={onClickRefresh}>
           <RefreshIcon />
         </ButtonContainer>
       </ThumbnailSection>
@@ -78,12 +74,7 @@ export default function CarouselItem({
             {intensity} %
           </FooterInfoItem>
         </FooterInfo>
-        <PageIndicator>
-          {circles.map((item, index) => (
-            <Circle key={index} active={index === currentPage} />
-          ))}
-        </PageIndicator>
       </FooterSection>
-    </Container>
+    </React.Fragment>
   );
 }
