@@ -1,10 +1,13 @@
 import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PersonIcon from "@material-ui/icons/Person";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import ToysIcon from "@material-ui/icons/Toys";
+import WavesIcon from "@material-ui/icons/Waves";
+import WbSunny from "@material-ui/icons/WbSunny";
 import {
   Container,
   ThumbnailSection,
-  LeftIcon,
-  RightIcon,
+  ButtonContainer,
   WeatherIcon,
   InfoSection,
   Temprature,
@@ -17,13 +20,16 @@ import {
   FooterSection,
   FooterInfo,
   PageIndicator,
-  Circle
+  Circle,
+  FooterInfoItem
 } from "./CarouselItem.styled.js";
 
 export default function CarouselItem({
   date,
   MMM,
   weather,
+  weatherIcon,
+  weatherCode,
   temprature,
   location,
   windSpeed,
@@ -36,11 +42,17 @@ export default function CarouselItem({
   return (
     <Container>
       <ThumbnailSection>
-        <LeftIcon />
-        <WeatherIcon>{weather}</WeatherIcon>
-        <RightIcon />
+        <ButtonContainer>
+          <PersonIcon />
+        </ButtonContainer>
+        <WeatherIcon>
+          <img src={weatherIcon} width="150px" height="150px" alt="" />
+        </WeatherIcon>
+        <ButtonContainer>
+          <RefreshIcon />
+        </ButtonContainer>
       </ThumbnailSection>
-      <InfoSection>
+      <InfoSection weatherCode={weatherCode}>
         <Temprature>{temprature}°</Temprature>
         <CenterInfo>
           <WeatherText>{weather}</WeatherText>
@@ -53,18 +65,18 @@ export default function CarouselItem({
       </InfoSection>
       <FooterSection>
         <FooterInfo>
-          <div>
-            <FontAwesomeIcon icon="wind" />
+          <FooterInfoItem>
+            <ToysIcon />
             {windSpeed} MPH
-          </div>
-          <div>
-            <FontAwesomeIcon icon="humidity" />
+          </FooterInfoItem>
+          <FooterInfoItem>
+            <WavesIcon />
             {humidity} %
-          </div>
-          <div>
-            <FontAwesomeIcon icon="sun" />
+          </FooterInfoItem>
+          <FooterInfoItem>
+            <WbSunny />
             {intensity} %
-          </div>
+          </FooterInfoItem>
         </FooterInfo>
         <PageIndicator>
           {circles.map((item, index) => (

@@ -1,7 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+import { getWeatherColor } from "./config";
 
 export const Container = styled.div`
-  font-family: 'Helvetica Neue', Helvetica, 'Trebuchet MS', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, "Trebuchet MS", sans-serif;
   border-radius: 16px;
   background-color: black;
   width: 250px;
@@ -15,27 +16,37 @@ export const ThumbnailSection = styled.div`
   justify-content: space-between;
 `;
 
-export const LeftIcon = styled.div`
+export const ButtonContainer = styled.div`
+  display: flex;
   height: 40px;
   width: 40px;
-  background-color: green;
+  & svg {
+    margin: auto;
+  }
 `;
-export const RightIcon = styled.div`
-  height: 40px;
-  width: 40px;
-  background-color: green;
+
+export const FooterInfoItem = styled.div`
+  display: flex;
+  align-items: center;
+  & svg {
+    font-size: 12pt;
+    padding: 0 5px;
+  }
 `;
+
 export const WeatherIcon = styled.div`
-  width: 150px;
-  height: 150px;
-  background-color: blue;
+  & svg {
+    width: 150px;
+    height: 150px;
+    margin: auf;
+  }
 `;
 
 export const InfoSection = styled.div`
-  background-color: turquoise;
   display: flex;
   color: white;
   padding: 12px;
+  background-color: ${({ weatherCode }) => getWeatherColor(weatherCode)};
 `;
 
 export const Temprature = styled.div`
@@ -95,7 +106,7 @@ export const Circle = styled.div`
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: ${({ active }) => (active ? 'white' : 'transparent')};
+  background-color: ${({ active }) => (active ? "white" : "transparent")};
   border: 1px solid white;
   margin: 4px;
 `;
