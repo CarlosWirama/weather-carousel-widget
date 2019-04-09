@@ -28,6 +28,7 @@ export default function CarouselItem({
   windSpeed,
   humidity,
   intensity
+  intensity,
 }) {
   return (
     <React.Fragment>
