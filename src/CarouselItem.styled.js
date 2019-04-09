@@ -4,15 +4,11 @@ import { getWeatherColor } from "./config";
 export const ThumbnailSection = styled.div`
   background-color: white;
   display: flex;
-  justify-content: space-between;
-`;
-
-export const ButtonContainer = styled.div`
-  display: flex;
-  height: 40px;
-  width: 40px;
+  align-items: center;
+  justify-content: center;
   & svg {
-    margin: auto;
+    width: 150px;
+    height: 150px;
   }
 `;
 
@@ -22,14 +18,6 @@ export const FooterInfoItem = styled.div`
   & svg {
     font-size: 12pt;
     padding: 0 5px;
-  }
-`;
-
-export const WeatherIcon = styled.div`
-  & svg {
-    width: 150px;
-    height: 150px;
-    margin: auf;
   }
 `;
 

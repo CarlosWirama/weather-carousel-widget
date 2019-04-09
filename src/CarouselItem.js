@@ -1,13 +1,9 @@
 import React from "react";
-import PersonIcon from "@material-ui/icons/Person";
-import RefreshIcon from "@material-ui/icons/Refresh";
 import ToysIcon from "@material-ui/icons/Toys";
 import WavesIcon from "@material-ui/icons/Waves";
 import WbSunny from "@material-ui/icons/WbSunny";
 import {
   ThumbnailSection,
-  ButtonContainer,
-  WeatherIcon,
   InfoSection,
   Temprature,
   CenterInfo,
@@ -31,22 +27,13 @@ export default function CarouselItem({
   location,
   windSpeed,
   humidity,
+  intensity
   intensity,
-  onClickProfile,
-  onClickRefresh
 }) {
   return (
     <React.Fragment>
       <ThumbnailSection>
-        <ButtonContainer onClick={onClickProfile}>
-          <PersonIcon />
-        </ButtonContainer>
-        <WeatherIcon>
-          <img src={weatherIcon} width="150px" height="150px" alt="" />
-        </WeatherIcon>
-        <ButtonContainer onClick={onClickRefresh}>
-          <RefreshIcon />
-        </ButtonContainer>
+        <img src={weatherIcon} width="150px" height="150px" alt="" />
       </ThumbnailSection>
       <InfoSection weatherCode={weatherCode}>
         <Temprature>{temprature}°</Temprature>
