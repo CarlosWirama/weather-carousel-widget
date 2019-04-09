@@ -2,9 +2,11 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import CarouselItem from "./CarouselItem";
 import { fetchWeatherApi } from "./api";
 import { Q_PARAM_1, Q_PARAM_2, Q_PARAM_3 } from "./config.js";
+import { AppContainer, Dots } from "./App.styled";
 
 function getMMM(month) {
   switch (month) {
@@ -41,19 +43,23 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      isLoading: true
     };
+    this.updateData = this.updateData.bind(this);
+    this.onClickRefresh = this.onClickRefresh.bind(this);
   }
 
   settings = {
-    // dots: true,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
-    slidesToScroll: 1
+    slidesToScroll: 1,
+    appendDots: dots => <Dots>{dots}</Dots>
   };
 
-  async fetchData() {
+  async fetchDataFromApi() {
     const fetchedData = await Promise.all([
       fetchWeatherApi(Q_PARAM_1),
       fetchWeatherApi(Q_PARAM_2),
@@ -73,24 +79,46 @@ export default class App extends React.Component {
     }));
   }
 
-  componentDidMount() {
-    this.fetchData().then(data => this.setState({ data: data }));
+  updateData() {
+    this.setState({ isLoading: true });
+    this.fetchDataFromApi().then(data => {
+      this.setState({ data, isLoading: false });
+    });
   }
 
+  componentDidMount() {
+    this.updateData();
+  }
+
+  onClickRefresh() {
+    this.updateData();
+  }
+
+  onClickProfile() {
+    // to something when clicking profile
+  }
   render() {
-    const { data } = this.state;
-    return (
-      <Slider {...this.settings}>
-        {data &&
-          data.map((item, index) => (
-            <CarouselItem
-              {...item}
-              key={index}
-              currentPage={index}
-              totalPage={data.length}
-            />
-          ))}
-      </Slider>
+    const { data, isLoading } = this.state;
+    return isLoading ? (
+      <AppContainer>
+        <CircularProgress />
+      </AppContainer>
+    ) : (
+      <AppContainer>
+        <Slider {...this.settings}>
+          {data &&
+            data.map((item, index) => (
+              <CarouselItem
+                {...item}
+                key={index}
+                currentPage={index}
+                totalPage={data.length}
+                onClickProfile={this.onClickProfile}
+                onClickRefresh={this.onClickRefresh}
+              />
+            ))}
+        </Slider>
+      </AppContainer>
     );
   }
 }
